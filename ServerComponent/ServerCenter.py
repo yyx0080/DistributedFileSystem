@@ -17,17 +17,19 @@ server_socket.listen(1)
 print('Waiting for a connection...')
 connection, client_address = server_socket.accept()
 
-try:
-    print('Connection from', client_address)
+while True:
+    connection, client_address = server_socket.accept()
+    try:
+        print('Connection from', client_address)
 
-    while True:
-        data = connection.recv(1024)
-        if data:
-            print('Received:', data.decode())
-            connection.sendall(b'Hello from server!')
-        else:
-            break
-finally:
-    # 关闭连接
-    connection.close()
+        while True:
+            data = connection.recv(1024)
+            if data:
+                print('Received:', data.decode())
+                connection.sendall(b'Hello from server!')
+            else:
+                break
+    finally:
+        # 关闭连接
+        connection.close()
 
