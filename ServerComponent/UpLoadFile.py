@@ -26,7 +26,7 @@ class FileUploadHandler(http.server.BaseHTTPRequestHandler):
 
 
 if __name__ == '__main__':
-    server_address = ('', 8000)
+    server_address = ('', 25567) #这里端口要改成25567这个是雨云的安全组
     httpd = http.server.HTTPServer(server_address, FileUploadHandler)
     print('Starting server...')
     httpd.serve_forever()
