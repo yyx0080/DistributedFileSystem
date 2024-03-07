@@ -59,11 +59,12 @@ def monitor_clients():
         # 休眠一段时间
         time.sleep(10)
 
-# 启动客户端心跳监控线程
-threading.Thread(target=monitor_clients).start()
+def StartServer():
+    # 启动客户端心跳监控线程
+    threading.Thread(target=monitor_clients).start()
 
-while True:
-    # 接受客户端连接
-    client_socket, address = server_socket.accept()
-    # 启动一个线程来处理客户端连接
-    threading.Thread(target=handle_client, args=(client_socket, address)).start()
+    while True:
+        # 接受客户端连接
+        client_socket, address = server_socket.accept()
+        # 启动一个线程来处理客户端连接
+        threading.Thread(target=handle_client, args=(client_socket, address)).start()

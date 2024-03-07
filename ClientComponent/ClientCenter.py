@@ -31,18 +31,18 @@ def receive_heartbeat():
         except:
             break
 
+def StartClient():
+    try:
+        # 连接服务器
+        client_socket.connect((server_address, server_port))
 
-try:
-    # 连接服务器
-    client_socket.connect((server_address, server_port))
+        # 启动发送和接收心跳消息的线程
+        threading.Thread(target=send_heartbeat).start()
+        threading.Thread(target=receive_heartbeat).start()
 
-    # 启动发送和接收心跳消息的线程
-    threading.Thread(target=send_heartbeat).start()
-    threading.Thread(target=receive_heartbeat).start()
-
-    # 发送和接收数据
-    while True:
-        pass
-finally:
-    # 关闭连接
-    client_socket.close()
+        # 发送和接收数据
+        while True:
+            pass
+    finally:
+        # 关闭连接
+        client_socket.close()

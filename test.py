@@ -1,3 +1,5 @@
 
+#服务器
+from ServerComponent import ServerCenter
 
-print("sadasd")
+ServerCenter.StartServer()
