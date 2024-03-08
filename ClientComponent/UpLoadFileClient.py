@@ -1,7 +1,8 @@
 # 本地客户端代码 local_client.py
+import threading
 
 import requests
-
+from MonitorFiles import MonitorFile
 
 def upload_file_to_cloud(file_path):
     # 指定云服务器的地址
@@ -18,6 +19,8 @@ def upload_file_to_cloud(file_path):
     print(response.text)
 
 
-if __name__ == '__main__':
-    # 上传本地文件到云服务器
-    upload_file_to_cloud('C:/Users/yyx/Desktop/UploadFile/5464564.txt')
+# if __name__ == '__main__':
+#     # 上传本地文件到云服务器
+#     upload_file_to_cloud('C:/Users/yyx/Desktop/UploadFile/5464564.txt')
+
+

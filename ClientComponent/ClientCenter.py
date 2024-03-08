@@ -40,8 +40,12 @@ def StartClient():
         # 启动发送和接收心跳消息的线程
         threading.Thread(target=send_heartbeat).start()
         threading.Thread(target=receive_heartbeat).start()
-        #启动监控本地文件线程
+        # 启动监控本地文件线程
         threading.Thread(targe=MonitorFile.MonitorChange()).start()
+        # 增删改由不同的线程来实现
+
+
+
         # 发送和接收数据
         while True:
             pass
