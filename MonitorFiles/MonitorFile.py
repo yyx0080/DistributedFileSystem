@@ -15,13 +15,14 @@ class MyHandler(FileSystemEventHandler):
         if event.src_path not in self.created_files:
             print(f'File {event.src_path} has been modified')
             #这里上传文件即可
-            UpLoadFileClient.upload_file_to_cloud(event.src_path)
+
 
     def on_created(self, event):
         # 当文件夹中有新文件被创建时触发此方法
         self.created_files.add(event.src_path)
         print(f'File {event.src_path} has been created')
-
+        # 这里上传文件即可
+        UpLoadFileClient.upload_file_to_cloud(event.src_path)
     def on_deleted(self, event):
         # 当文件夹中有文件被删除时触发此方法
         print(f'File {event.src_path} has been deleted')

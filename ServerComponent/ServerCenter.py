@@ -1,7 +1,7 @@
 import socket
 import threading
 import time
-
+import UpLoadFile
 # 监听地址和端口
 host = '0.0.0.0'  # 服务器IP地址，'0.0.0.0'表示监听所有可用的网络接口
 port = 58528      # 服务器端口号
@@ -68,3 +68,4 @@ def StartServer():
         client_socket, address = server_socket.accept()
         # 启动一个线程来处理客户端连接
         threading.Thread(target=handle_client, args=(client_socket, address)).start()
+        threading.Thread(target=UpLoadFile.add_File()).start()

@@ -24,9 +24,10 @@ class FileUploadHandler(http.server.BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(b'File uploaded successfully')
 
-
-if __name__ == '__main__':
-    server_address = ('', 25567) #这里端口要改成25567这个是雨云的安全组
+# 上传文件功能
+def add_File():
+    server_address = ('', 25567)  # 这里端口要改成25567这个是雨云的安全组
     httpd = http.server.HTTPServer(server_address, FileUploadHandler)
     print('Starting server...')
     httpd.serve_forever()
+
