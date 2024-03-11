@@ -6,11 +6,15 @@ def upload_file_to_cloud(file_path):
     # 指定云服务器的地址
     cloud_server_url = 'http://103.40.13.95:56725/upload'
 
+    # 构造文件对象
     # 构造包含文件的字典
     files = {'file': open(file_path, 'rb')}
+    filename = file_path.split('\\')[-1]
+    # 构造请求头部
+    headers = {'Content-Disposition': 'attachment; filename="{}"'.format(filename)}
 
     # 发送 POST 请求将文件内容上传到云服务器
-    response = requests.post(cloud_server_url, files=files)
+    response = requests.post(cloud_server_url, files=files, headers=headers)
 
     # 打印服务器返回的响应结果
     print(response.text)
