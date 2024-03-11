@@ -17,7 +17,7 @@ server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 server_socket.bind((host, port))
 
 # 开始监听连接
-server_socket.listen(5)
+server_socket.listen(20)
 
 print('Waiting for connections...')
 
