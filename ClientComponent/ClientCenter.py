@@ -51,4 +51,6 @@ def StartClient():
             pass
     finally:
         # 关闭连接
+        # 在客户端关闭时向服务器发送关闭消息
+        client_socket.sendall(b'CLOSE')
         client_socket.close()

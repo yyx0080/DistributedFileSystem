@@ -34,6 +34,10 @@ def handle_client(client_socket, address):
             if not data:
                 break
             print('Received from', address, ':', data.decode())
+            if data == b'CLOSE':
+                # 清理客户端相关信息
+                del clients[address]
+                break
             client_socket.sendall(b'Hello from server!')
 
     finally:
