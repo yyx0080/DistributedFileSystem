@@ -6,6 +6,7 @@ class FileUploadHandler(http.server.BaseHTTPRequestHandler):
     def do_POST(self):
         # 获取文件名
         content_disposition = self.headers.get('Content-Disposition')
+        print("Content-Disposition = ",content_disposition)
         filename = content_disposition.split(';')[1].split('=')[1].strip('"')
 
         content_length = int(self.headers['Content-Length'])
@@ -30,5 +31,5 @@ class FileUploadHandler(http.server.BaseHTTPRequestHandler):
 def add_File():
     server_address = ('', 25567)  # 这里端口要改成25567这个是雨云的安全组
     httpd = http.server.HTTPServer(server_address, FileUploadHandler)
-    print('Starting server...')
+    print('Starting ADD server...')
     httpd.serve_forever()
