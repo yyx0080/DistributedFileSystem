@@ -11,7 +11,8 @@ clients = {}
 
 # 创建一个 TCP/IP 套接字
 server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
+# 设置地址复用，为的是断后重新链接
+server_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 # 绑定地址和端口
 server_socket.bind((host, port))
 
