@@ -27,7 +27,8 @@ def handle_client(client_socket, address):
 
         # 存储客户端信息（用于心跳）
         clients[address] = client_socket
-
+        # 打开上传文件的接口
+        UpLoadFile.add_File()
         # 接收和处理客户端消息
         while True:
             data = client_socket.recv(1024)
@@ -73,4 +74,4 @@ def StartServer():
         client_socket, address = server_socket.accept()
         # 启动一个线程来处理客户端连接
         threading.Thread(target=handle_client, args=(client_socket, address)).start()
-        threading.Thread(target=UpLoadFile.add_File()).start()
+        #threading.Thread(target=UpLoadFile.add_File()).start()  # 这行代码有问题要删掉
