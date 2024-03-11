@@ -27,8 +27,6 @@ def handle_client(client_socket, address):
 
         # 存储客户端信息（用于心跳）
         clients[address] = client_socket
-        # 打开上传文件的接口
-        UpLoadFile.add_File()
         # 接收和处理客户端消息
         while True:
             data = client_socket.recv(1024)
@@ -36,8 +34,6 @@ def handle_client(client_socket, address):
                 break
             print('Received from', address, ':', data.decode())
             if data == b'CLOSE':
-                # 清理客户端相关信息
-                del clients[address]
                 break
             client_socket.sendall(b'Hello from server!')
 
