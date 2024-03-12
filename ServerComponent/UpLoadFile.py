@@ -1,17 +1,14 @@
 import http.server
 import os
-
+import re
 
 class FileUploadHandler(http.server.BaseHTTPRequestHandler):
     def do_POST(self):
-        # 获取文件名
-        content_disposition = self.headers.get('Content-Disposition')
-        print("Content-Disposition = ",content_disposition)
-        filename = content_disposition.split(';')[1].split('=')[1].strip('"')
-
         content_length = int(self.headers['Content-Length'])
-        # 从请求中读取文件内容
         file_content = self.rfile.read(content_length)
+
+        # 获取文件名
+        filename = self.headers.get('X-File-Name')
 
         # 指定保存文件的目录
         upload_dir = 'C:/Users/Administrator/Desktop/File'
@@ -26,7 +23,6 @@ class FileUploadHandler(http.server.BaseHTTPRequestHandler):
         self.send_header('Content-type', 'text/plain')
         self.end_headers()
         self.wfile.write(b'File uploaded successfully')
-
 # 上传文件功能
 def add_File():
     server_address = ('', 25567)  # 这里端口要改成25567这个是雨云的安全组
