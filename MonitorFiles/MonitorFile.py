@@ -5,7 +5,7 @@ from watchdog.events import FileSystemEventHandler
 # 这里要导入多个包，增 删 改
 # ADD
 from ClientComponent import UpLoadFileClient
-
+from ClientComponent import DeleteFileClient
 class MyHandler(FileSystemEventHandler):
     def __init__(self):
         self.created_files = set()  # 用于存储已创建的文件路径
@@ -26,7 +26,7 @@ class MyHandler(FileSystemEventHandler):
     def on_deleted(self, event):
         # 当文件夹中有文件被删除时触发此方法
         print(f'File {event.src_path} has been deleted')
-
+        DeleteFileClient.delete_file_on_cloud(event.src_path)
 
 def monitor_folder(folder_path):
     event_handler = MyHandler()
@@ -43,5 +43,5 @@ def monitor_folder(folder_path):
 
 def MonitorChange():
     # 监控文件是否修改
-    folder_path = 'C:/Users/Administrator/Desktop/FileClient2'  # 要监控的文件夹路径，需要定制化修改
+    folder_path = 'C:/Users/yyx/Desktop/UploadFile'  # 要监控的文件夹路径，需要定制化修改 Unique
     monitor_folder(folder_path)

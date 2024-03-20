@@ -31,18 +31,34 @@ def download_file_from_server(url, filename):
             print(f"Failed to download file '{filename}': Unexpected status code {response.status_code}")
     except Exception as e:
         print(f"Failed to download file '{filename}': {e}")
+# 删除函数
+def delete_file_self(del_path):
+    if os.path.exists(del_path):
+        os.remove(del_path)
+        print("本地文件删除成功")
+    else:
+        print("未找到本地文件")
+
 # 回调函数，处理接收到的文件内容
 def callback(ch, method, properties, body):
     # 解析消息中的文件名和文件内容
     data = json.loads(body.decode())
     filename = data.get('filename')
+    optype = data.get('type')   # 操作类型
     # 通过filename从服务器取得文件即可
     print(data)
-    url = 'http://103.40.13.95:58197/' + "download" + '/' + filename
-    print("url = ",url)
-    download_file_from_server(url,filename)
-    # 发送确认消息
-    ch.basic_ack(delivery_tag=method.delivery_tag)
+    if 'add' in optype:
+        url = 'http://103.40.13.95:58197/' + "download" + '/' + filename
+        print("url = ",url)
+        download_file_from_server(url,filename)
+        # 发送确认消息
+        ch.basic_ack(delivery_tag=method.delivery_tag)
+    elif 'del' in optype:
+        # 删除本地文件夹中的对应文件即可
+        del_path = os.path.join(SAVE_FOLDER, filename)
+        delete_file_self(del_path)
+        # 发送确认消息
+        ch.basic_ack(delivery_tag=method.delivery_tag)
 
 # 监听队列，并注册回调函数
 channel.basic_consume(queue='file_broadcast2', on_message_callback=callback)
