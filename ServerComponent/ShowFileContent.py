@@ -33,7 +33,7 @@ def upload_file():
             return redirect(url_for('index'))
     return render_template('upload.html')
 
-@app.route('/delete/<filename>', methods=['GET'])
+@app.route('/delete/<filename>', methods=['DELETE'])
 def delete_file(filename):
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
     if os.path.exists(file_path):

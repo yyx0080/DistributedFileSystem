@@ -61,9 +61,8 @@ def monitor_clients():
         # 休眠一段时间
         time.sleep(10)
         # ADD功能
-        threading.Thread(target=UpLoadFile.add_File()).start()
+        threading.Thread(target=UpLoadFile.add_mod_del_File()).start()
         # MOD功能
-
         # DEL功能
 
 def StartServer():
