@@ -18,9 +18,10 @@ channel.queue_declare(queue='file_broadcast2')  # 湖北客户端
 def add_broupload_file(file_path):
     filename = os.path.basename(file_path)
     # 组装消息
+    optype = "add"
     message = {
         'filename': filename,
-        'type': 'add',
+        'type': optype,
         'from': 123
     }
     # 发送文件内容到队列
@@ -35,9 +36,10 @@ def add_broupload_file(file_path):
 def del_brouload_file(file_path):
     filename = os.path.basename(file_path)
     # 组装消息
+    optype = "del"
     message = {
         'filename': filename,
-        'type': 'del',
+        'type': optype,
         'from': 123
     }
     # 发送文件内容到队列

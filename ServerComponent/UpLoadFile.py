@@ -42,6 +42,8 @@ class FileUploadDeleteModHandler(http.server.BaseHTTPRequestHandler):
             self.send_header('Content-type', 'text/plain')
             self.end_headers()
             self.wfile.write(f'File {filename} deleted successfully'.encode())
+            fileDeletePath = os.path.join(upload_dir, filename)  # 这个路径是刚刚上传文件的路径
+            AddBroadcast.del_brouload_file(fileDeletePath)
         else:
             self.send_response(404)
             self.send_header('Content-type', 'text/plain')
