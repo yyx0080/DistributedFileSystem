@@ -32,5 +32,15 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], file.filename))
             return redirect(url_for('index'))
     return render_template('upload.html')
+
+@app.route('/delete/<filename>', methods=['GET'])
+def delete_file(filename):
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    if os.path.exists(file_path):
+        os.remove(file_path)
+        return redirect(url_for('index'))
+    else:
+        return "File not found"
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=25565,debug=True)
