@@ -20,6 +20,7 @@ def add_broupload_file(file_path):
     # 组装消息
     message = {
         'filename': filename,
+        'type': 'add',
         'from': 123
     }
     # 发送文件内容到队列
@@ -28,5 +29,22 @@ def add_broupload_file(file_path):
     channel.basic_publish(exchange='', routing_key='file_broadcast2', body=json.dumps(message))
     print("File '{}' uploaded add_file_broadcast1 successfully.".format(filename))
     print("File '{}' uploaded add_file_broadcast2 successfully.".format(filename))
+
+# 定义删除文件函数
+# 把删除信息丢入消息队列中
+def del_brouload_file(file_path):
+    filename = os.path.basename(file_path)
+    # 组装消息
+    message = {
+        'filename': filename,
+        'type': 'del',
+        'from': 123
+    }
+    # 发送文件内容到队列
+    # 这里后面要多次调用，就是不用调用谁发送的消息队列，谁发送的，他的消息队列就不调用
+    channel.basic_publish(exchange='', routing_key='file_broadcast1', body=json.dumps(message))
+    channel.basic_publish(exchange='', routing_key='file_broadcast2', body=json.dumps(message))
+    print("File '{}' del add_file_broadcast1 successfully.".format(filename))
+    print("File '{}' del add_file_broadcast2 successfully.".format(filename))
 
 
