@@ -1,6 +1,8 @@
 import http.server
 import os
 import re
+import threading
+
 from ServerComponent import AddBroadcast
 
 # 指定保存文件的目录
@@ -49,6 +51,8 @@ class FileUploadDeleteModHandler(http.server.BaseHTTPRequestHandler):
             self.send_header('Content-type', 'text/plain')
             self.end_headers()
             self.wfile.write(f'File {filename} not found'.encode())
+
+
 # 上传文件功能
 def add_mod_del_File():
     server_address = ('', 25567)  # 这里端口要改成25567这个是雨云的安全组

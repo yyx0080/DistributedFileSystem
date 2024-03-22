@@ -2,6 +2,7 @@ import socket
 import threading
 import time
 from ServerComponent import UpLoadFile
+from ServerComponent import AddBroadcast
 # 监听地址和端口
 host = '0.0.0.0'  # 服务器IP地址，'0.0.0.0'表示监听所有可用的网络接口
 port = 58528      # 服务器端口号
@@ -61,14 +62,14 @@ def monitor_clients():
         # 休眠一段时间
         time.sleep(10)
         # ADD功能
-        threading.Thread(target=UpLoadFile.add_mod_del_File()).start()
         # MOD功能
         # DEL功能
+        threading.Thread(target=UpLoadFile.add_mod_del_File()).start()
+
 
 def StartServer():
     # 启动客户端心跳监控线程
     threading.Thread(target=monitor_clients).start()
-
     while True:
         # 接受客户端连接
         client_socket, address = server_socket.accept()

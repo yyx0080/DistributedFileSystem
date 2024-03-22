@@ -1,9 +1,11 @@
+import time
+
 import pika
 import os
 import json
 import base64
 # 保证服务器端启动了RabbitMQ
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost',heartbeat=0))
 channel = connection.channel()
 
 # 声明一个名为 'file_broadcast2' 的队列 湖北，一一对应
@@ -49,4 +51,22 @@ def del_brouload_file(file_path):
     print("File '{}' del add_file_broadcast1 successfully.".format(filename))
     print("File '{}' del add_file_broadcast2 successfully.".format(filename))
 
+# 新增一个方法，持续给客户端发送心跳
+def send_heartbeat():
+    while True:
+        optype = "heartbeat"
+        filename = "serverHeartBeat"
+        message = {
+            'filename': filename,
+            'type': optype,
+            'from': 123
+        }
+        # 发送文件内容到队列
+        # 这里后面要多次调用，就是不用调用谁发送的消息队列，谁发送的，他的消息队列就不调用
+        channel.basic_publish(exchange='', routing_key='file_broadcast1', body=json.dumps(message))
+        channel.basic_publish(exchange='', routing_key='file_broadcast2', body=json.dumps(message))
+        print("File '{}' heart add_file_broadcast1 successfully.")
+        print("File '{}' heart add_file_broadcast2 successfully.")
+        # 休眠10s
+        time.sleep(10)
 
