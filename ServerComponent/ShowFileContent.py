@@ -9,8 +9,14 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 @app.route('/')
 def index():
     # 获取文件夹内的所有文件名
+
     files = os.listdir(UPLOAD_FOLDER)
-    return render_template('index.html', files=files)
+    file_sizes = {}
+    for file in files:
+        file_path = os.path.join(UPLOAD_FOLDER, file)
+        file_size_kb = os.path.getsize(file_path) / 1024  # Convert bytes to KB
+        file_sizes[file] = f"{file_size_kb:.2f} KB"  # Format to two decimal places
+    return render_template('index.html', files=files,file_sizes=file_sizes)
 
 @app.route('/download/<filename>')
 def download_file(filename):
