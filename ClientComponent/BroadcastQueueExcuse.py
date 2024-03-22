@@ -38,7 +38,9 @@ def delete_file_self(del_path):
         print("本地文件删除成功")
     else:
         print("未找到本地文件")
-
+# 处理心跳的函数
+def heart_receive(data):
+    print("receive from server heart ： ",data)
 # 回调函数，处理接收到的文件内容
 def callback(ch, method, properties, body):
     # 解析消息中的文件名和文件内容
@@ -57,6 +59,11 @@ def callback(ch, method, properties, body):
         # 删除本地文件夹中的对应文件即可
         del_path = os.path.join(SAVE_FOLDER, filename)
         delete_file_self(del_path)
+        # 发送确认消息
+        ch.basic_ack(delivery_tag=method.delivery_tag)
+    elif 'heartbeat' in optype:
+        # 处理心跳
+        heart_receive(data)
         # 发送确认消息
         ch.basic_ack(delivery_tag=method.delivery_tag)
 
