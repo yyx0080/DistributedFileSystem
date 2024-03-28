@@ -70,3 +70,20 @@ def send_heartbeat():
         # 休眠10s
         time.sleep(10)
 
+# 用来获取本地File的所有文件名称以及哈希值，用于初始化
+def send_filename_hash(files_and_hashes,address):
+    # 组装消息
+    filename = "dict"
+    optype = "dict"
+    message = {
+        'filename': filename,
+        'type': optype,
+        'from': 123,
+        'dict': files_and_hashes
+    }
+    if address == '117.30.183.237':
+        print("is PC my ss")
+        # 发送消息队列到宿舍的电脑
+        channel.basic_publish(exchange='', routing_key='file_broadcast1', body=json.dumps(message))
+    else:
+        print("unKnow ip address error!")
