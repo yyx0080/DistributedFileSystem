@@ -4,12 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File List</title>
+    <style>
+        .file {
+            display: block;
+            margin-bottom: 10px;
+            margin-right: 50px;
+        }
+
+        .file span {
+            display: block;
+        }
+    </style>
 </head>
 <body>
     <h1>File List</h1>
     <ul>
         {% for file in files %}
-            <li><a href="/download/{{ file }}">{{ file }}</a></li>
+            <li class="file">
+                <a href="/download/{{ file }}">{{ file }}</a>
+                <a> ----</a>
+                <a> </a>
+                <a>size: {{ file_sizes[file] }}</a>
+<!--                <span>size: {{ file_sizes[file] }}</span>-->
+            </li>
         {% endfor %}
     </ul>
 </body>
