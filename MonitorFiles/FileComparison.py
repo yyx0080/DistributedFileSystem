@@ -3,7 +3,7 @@ import os
 import hashlib
 
 # 调用函数获取文件夹内所有文件的名字和哈希值
-folder_path = 'C:/Users/Administrator/Desktop/File' # Unique
+folder_path = 'C:/Users/yyx/Desktop/UploadFile' # Unique
 
 def get_files_and_hashes(folder_path):
     files_and_hashes = {}
