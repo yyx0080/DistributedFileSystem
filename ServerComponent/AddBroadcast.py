@@ -81,8 +81,8 @@ def send_filename_hash(files_and_hashes,address):
         'from': 123,
         'dict': files_and_hashes
     }
-    if address == '117.30.183.237':
-        print("is PC my ss")
+    if "117.30.183.237" in address:
+        print("is PC from dormitory")
         # 发送消息队列到宿舍的电脑
         channel.basic_publish(exchange='', routing_key='file_broadcast1', body=json.dumps(message))
     else:
