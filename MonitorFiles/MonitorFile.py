@@ -14,8 +14,8 @@ class MyHandler(FileSystemEventHandler):
         # 当文件夹中有文件被修改时触发此方法
         if event.src_path not in self.created_files:
             print(f'File {event.src_path} has been modified')
-            #这里上传文件即可
-
+            # 这里上传文件即可
+            UpLoadFileClient.upload_file_to_cloud(event.src_path)
 
     def on_created(self, event):
         # 当文件夹中有新文件被创建时触发此方法
