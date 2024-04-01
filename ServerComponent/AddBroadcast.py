@@ -88,7 +88,7 @@ def send_filename_hash(files_and_hashes,address):
         'from': 123,
         'dict': files_and_hashes
     }
-    if "117.30.183.237" in address:
+    if "117.30.181.71" in address:
         print("is PC from dormitory")
         # 发送消息队列到宿舍的电脑
         channel.basic_publish(exchange='', routing_key='file_broadcast1', body=json.dumps(message))
@@ -96,5 +96,9 @@ def send_filename_hash(files_and_hashes,address):
         print("is PC from lhj")
         # 发送消息队列到宿舍的电脑
         channel.basic_publish(exchange='', routing_key='file_broadcast3', body=json.dumps(message))
+    elif "111.180.189.221" in address:
+        print("is PC from Hubei")
+        # 发送消息到湖北的电脑
+        channel.basic_publish(exchange='', routing_key='file_broadcast2', body=json.dumps(message))
     else:
         print("unKnow ip address error!")
