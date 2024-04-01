@@ -44,7 +44,7 @@ def heart_receive(data):
     print("receive from server heart ： ",data)
 # 处理字典函数，用作初始化和后续隔时同步
 def filename_hash_receive(filename_hash_server):
-    filename_hash_client = FileComparison.get_files_and_hashes(FileComparison.folder_path)
+    filename_hash_client = FileComparison.get_files_and_hashes(FileComparison.folder_path)  # Unique
     # 比较服务器和本地的字典数据，找出差异
     server_only = set(filename_hash_server.keys()) - set(filename_hash_client.keys())  # 服务器有而本地没有的文件
     local_only = set(filename_hash_client.keys()) - set(filename_hash_server.keys())  # 本地有而服务器没有的文件

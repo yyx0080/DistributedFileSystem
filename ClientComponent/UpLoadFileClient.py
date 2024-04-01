@@ -3,6 +3,7 @@ import stat
 import threading
 import requests
 from MonitorFiles import MonitorFile
+from MonitorFiles import FileComparison
 
 def upload_file_to_cloud(file_path):
     cloud_server_url = 'http://103.40.13.95:56725/upload'
@@ -11,6 +12,10 @@ def upload_file_to_cloud(file_path):
     file_path = file_path.replace('\\', '/')
     print("filepath = ", file_path)
     headers = {'X-File-Name': filename}
+    # 获取该文件的哈希值并且添加到请求头中
+    hash_value = FileComparison.hash_file(file_path)
+    headers['X-File-Hash'] = hash_value
+    print("x-file-hash = ",hash_value)
     # 修改文件权限
     # os.chmod(file_path, stat.S_IRWXU)  # 防止出现[Errno 13] Permission denied
     # 检查文件的权限状态
