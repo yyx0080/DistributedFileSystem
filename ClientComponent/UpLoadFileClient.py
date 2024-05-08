@@ -16,6 +16,7 @@ def upload_file_to_cloud(file_path):
     hash_value = FileComparison.hash_file(file_path)
     headers['X-File-Hash'] = hash_value
     print("x-file-hash = ",hash_value)
+    print('header = ',headers)
     # 修改文件权限
     # os.chmod(file_path, stat.S_IRWXU)  # 防止出现[Errno 13] Permission denied
     # 检查文件的权限状态
